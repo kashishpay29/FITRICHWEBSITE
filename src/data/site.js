@@ -1,20 +1,23 @@
 /**
  * Business details used across the site (navbar, footer, contact page, WhatsApp links).
- * PLACEHOLDERS — replace with FitRich Masale's real contact information before launch.
+ * Email, hours and social links are still PLACEHOLDERS — replace before launch.
  */
 export const site = {
   name: 'FitRich Masale',
   tagline: 'Bringing Authentic Flavours to Every Kitchen.',
   url: 'https://fitrichmasale.com',
-  phone: '+91 89791 62111',
-  phoneHref: 'tel:+918979162111',
+  // First number is the primary one shown in the navbar.
+  phones: [
+    { display: '+91 84339 06345', href: 'tel:+918433906345' },
+    { display: '+91 89791 62111', href: 'tel:+918979162111' },
+  ],
   email: 'hello@fitrichmasale.com',
   // Digits only, with country code, no "+" — used for wa.me links.
   whatsapp: '918979162111',
   address: {
-    line1: 'FitRich Masale',
-    line2: 'Industrial Area, Phase II',
-    city: 'Indore, Madhya Pradesh',
+    line1: '76/82, Sabji Mandi',
+    line2: 'Govind Ganj Sabji Mandi, Holi Gate',
+    city: 'Mathura, Uttar Pradesh 281001',
     country: 'India',
   },
   hours: 'Mon – Sat, 10:00 AM – 6:00 PM',
@@ -24,6 +27,10 @@ export const site = {
     youtube: 'https://youtube.com/',
   },
 }
+
+export const primaryPhone = site.phones[0]
+
+export const fullAddress = [site.address.line1, site.address.line2, site.address.city, site.address.country].join(', ')
 
 export function whatsappLink(message = 'Hello FitRich Masale, I would like to know more about your products.') {
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`

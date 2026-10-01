@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getProduct } from '@/data/products'
 import { images } from '@/data/images'
-import { site, whatsappLink } from '@/data/site'
+import { fullAddress, primaryPhone, site, whatsappLink } from '@/data/site'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 
@@ -192,7 +192,7 @@ function ContactForm() {
                 <p>
                   Sorry, we couldn’t send your message right now. Please try again, or reach us directly on{' '}
                   <a href={whatsappLink()} target="_blank" rel="noreferrer" className="font-semibold underline">WhatsApp</a> or{' '}
-                  <a href={site.phoneHref} className="font-semibold underline">{site.phone}</a>.
+                  <a href={primaryPhone.href} className="font-semibold underline">{primaryPhone.display}</a>.
                 </p>
               </motion.div>
             )}
@@ -235,10 +235,10 @@ function Field({ id, label, error, className, children }) {
 
 function ContactInfo() {
   const rows = [
-    { icon: Phone, label: 'Call us', value: site.phone, href: site.phoneHref },
-    { icon: Mail, label: 'Email', value: site.email, href: `mailto:${site.email}` },
-    { icon: MapPin, label: 'Address', value: `${site.address.line1}, ${site.address.line2}, ${site.address.city}, ${site.address.country}` },
-    { icon: Clock, label: 'Business hours', value: site.hours },
+    { icon: Phone, label: 'Call us', items: site.phones.map((p) => ({ value: p.display, href: p.href })) },
+    { icon: Mail, label: 'Email', items: [{ value: site.email, href: `mailto:${site.email}` }] },
+    { icon: MapPin, label: 'Address', items: [{ value: fullAddress }] },
+    { icon: Clock, label: 'Business hours', items: [{ value: site.hours }] },
   ]
   return (
     <div className="flex flex-col gap-6">
@@ -257,17 +257,19 @@ function ContactInfo() {
       <Reveal delay={0.2} className="rounded-[2rem] border border-cream-300 bg-cream-50 p-8">
         <h2 className="text-2xl font-bold text-earth-900">Business contact</h2>
         <ul className="mt-6 space-y-5">
-          {rows.map(({ icon: Icon, label, value, href }) => (
+          {rows.map(({ icon: Icon, label, items }) => (
             <li key={label} className="flex gap-4">
               <span className="grid size-11 shrink-0 place-items-center rounded-full bg-turmeric-300/40 text-chilli-700">
                 <Icon className="size-5" />
               </span>
               <div className="min-w-0">
                 <p className="text-xs font-bold tracking-[0.16em] text-earth-500 uppercase">{label}</p>
-                {href ? (
-                  <a href={href} className="font-semibold break-words text-earth-900 hover:text-chilli-700">{value}</a>
-                ) : (
-                  <p className="font-semibold text-earth-900">{value}</p>
+                {items.map(({ value, href }) =>
+                  href ? (
+                    <a key={value} href={href} className="block font-semibold break-words text-earth-900 hover:text-chilli-700">{value}</a>
+                  ) : (
+                    <p key={value} className="font-semibold text-earth-900">{value}</p>
+                  ),
                 )}
               </div>
             </li>

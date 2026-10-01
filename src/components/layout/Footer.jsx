@@ -3,7 +3,7 @@ import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react'
 import Logo from '@/components/Logo'
 import SocialIcons from '@/components/SocialIcons'
 import { Button } from '@/components/ui/button'
-import { navLinks, site, whatsappLink } from '@/data/site'
+import { fullAddress, navLinks, site, whatsappLink } from '@/data/site'
 import { products } from '@/data/products'
 import { BrandIcon } from '@/components/SocialIcons'
 import Reveal from '@/components/Reveal'
@@ -86,14 +86,17 @@ export default function Footer() {
           <ul className="mt-5 space-y-4 text-cream-200/80">
             <li className="flex gap-3">
               <MapPin className="mt-0.5 size-5 shrink-0 text-gold-400" />
-              <span>
-                {site.address.line2}, {site.address.city}, {site.address.country}
-              </span>
+              <span>{fullAddress}</span>
             </li>
-            <li>
-              <a href={site.phoneHref} className="flex gap-3 hover:text-cream-50">
-                <Phone className="size-5 shrink-0 text-gold-400" /> {site.phone}
-              </a>
+            <li className="flex gap-3">
+              <Phone className="mt-0.5 size-5 shrink-0 text-gold-400" />
+              <span className="flex flex-col gap-1">
+                {site.phones.map((p) => (
+                  <a key={p.href} href={p.href} className="hover:text-cream-50">
+                    {p.display}
+                  </a>
+                ))}
+              </span>
             </li>
             <li>
               <a href={`mailto:${site.email}`} className="flex gap-3 break-all hover:text-cream-50">

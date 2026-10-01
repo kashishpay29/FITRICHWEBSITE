@@ -5,7 +5,7 @@ import { Menu, X, Phone } from 'lucide-react'
 import Logo from '@/components/Logo'
 import SocialIcons from '@/components/SocialIcons'
 import { Button } from '@/components/ui/button'
-import { navLinks, site } from '@/data/site'
+import { navLinks, primaryPhone } from '@/data/site'
 import { cn } from '@/lib/utils'
 
 export default function Navbar() {
@@ -74,10 +74,10 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            href={site.phoneHref}
+            href={primaryPhone.href}
             className={cn('flex items-center gap-2 text-sm font-semibold transition-colors', solid ? 'text-earth-700' : 'text-cream-100/85')}
           >
-            <Phone className="size-4" /> {site.phone}
+            <Phone className="size-4" /> {primaryPhone.display}
           </a>
           <Button asChild variant={solid ? 'default' : 'gold'} size="sm">
             <Link to="/contact">Enquire Now</Link>
@@ -134,8 +134,8 @@ export default function Navbar() {
                 <Link to="/contact">Enquire Now</Link>
               </Button>
               <div className="flex items-center justify-between">
-                <a href={site.phoneHref} className="text-sm font-semibold text-cream-100">
-                  {site.phone}
+                <a href={primaryPhone.href} className="text-sm font-semibold text-cream-100">
+                  {primaryPhone.display}
                 </a>
                 <SocialIcons itemClassName="border-cream-50/20 text-cream-100" />
               </div>
