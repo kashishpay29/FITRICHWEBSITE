@@ -31,6 +31,7 @@ export default function About() {
       <ArtOfSpices />
       <Process />
       <ClosingCta />
+      <Founders />
     </>
   )
 }
@@ -235,6 +236,71 @@ function ClosingCta() {
           </Button>
         </div>
       </Reveal>
+    </section>
+  )
+}
+
+function Founders() {
+  const founders = 'Suryakant & Sudhanshu'
+
+  return (
+    <section id="founders" className="relative isolate scroll-mt-20 overflow-hidden bg-[#0b0705] py-16 text-cream-50 sm:py-20">
+      <div className="motif absolute inset-0 -z-10 opacity-50" aria-hidden="true" />
+      <div className="absolute top-0 left-[10%] -z-10 size-80 rounded-full bg-chilli-700/30 blur-3xl" aria-hidden="true" />
+
+      <div className="container-x grid max-w-6xl items-center gap-10 md:grid-cols-[.85fr_1.15fr] lg:gap-16">
+        <div className="relative mx-auto w-full max-w-sm md:max-w-none">
+          <div className="absolute inset-x-[15%] top-[10%] bottom-0 -z-10 rounded-full bg-gold-500/20 blur-3xl" aria-hidden="true" />
+          {/* The photo has a pure black backdrop; "lighten" blending lets the section show through it.
+              Keep transforms/opacity off this wrapper, or the blend stops reaching the section. */}
+          <img
+            src="/about/founders.webp"
+            alt={`${founders}, the childhood friends who founded FitRich Masale`}
+            width="793"
+            height="666"
+            loading="lazy"
+            className="w-full mix-blend-lighten"
+          />
+          {/* Soften the cut-off at the bottom of the photo */}
+          <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[#0b0705] to-transparent" aria-hidden="true" />
+          <p className="absolute inset-x-0 bottom-2 text-center">
+            <span className="font-display text-2xl font-bold text-cream-50">{founders}</span>
+            <span className="mt-0.5 block text-xs font-bold tracking-[0.22em] text-turmeric-300 uppercase">Founders</span>
+          </p>
+        </div>
+
+        <div>
+          <Reveal>
+            <p className="eyebrow text-turmeric-300">The people behind FitRich</p>
+            <h2 className="mt-3 text-3xl leading-[1.1] font-bold sm:text-4xl">
+              Two childhood friends. <span className="text-turmeric-300 italic">One shared dream.</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-5 space-y-4 leading-relaxed text-cream-200/85">
+            <p>
+              FitRich Masale began with {founders} — two friends who grew up sharing lunch boxes, festivals and countless meals
+              at each other’s homes, where every memory smelled of fresh tadka and garam masala.
+            </p>
+            <p>
+              They wanted every family to enjoy masalas they could truly trust, so they set out to build a brand that treats each
+              spice with the honesty and care of a home kitchen. That is what{' '}
+              <span className="font-semibold text-turmeric-300">“Purity Mein Hit”</span> means to them.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <figure className="mt-7 border-l-2 border-gold-400/60 pl-5">
+              <Quote className="size-5 text-gold-400" aria-hidden="true" />
+              <blockquote className="mt-2 font-display text-xl leading-snug text-cream-50 italic">
+                Every pack carries the promise we made to each other at the start: never compromise on what goes into your
+                family’s food.
+              </blockquote>
+              <figcaption className="mt-3 text-sm font-semibold text-gold-300">— {founders}, Founders</figcaption>
+            </figure>
+          </Reveal>
+        </div>
+      </div>
     </section>
   )
 }
