@@ -14,7 +14,7 @@ npm run build    # production build in dist/
 | What | Where |
 | --- | --- |
 | Products (names, descriptions, ingredients, usage, pack sizes, colours, featured) | `src/data/products.js` |
-| Phone, email, WhatsApp number, address, hours, social links | `src/data/site.js` |
+| Phone numbers, email, WhatsApp number, address, hours, social links | `src/data/site.js` |
 | Photography (Unsplash placeholders) | `src/data/images.js` |
 | Colours & fonts | `@theme` block in `src/index.css` |
 
@@ -27,13 +27,12 @@ on the product. It replaces the illustration everywhere.
 
 ## Contact form
 
-Set `VITE_FORM_ENDPOINT` (see `.env.example`) to a Formspree / Web3Forms / Getform endpoint or your own API.
-The form POSTs JSON `{ name, email, phone, type, message }`. If no endpoint is set, submitting opens the visitor's
-email app with the enquiry pre-filled.
+Submitting the contact form opens WhatsApp with the enquiry pre-filled (name, phone, email, type and message),
+addressed to the WhatsApp number in `src/data/site.js`. The visitor just taps Send. No backend is needed.
 
 ## Deploy (Vercel)
 
-Import the repo in Vercel (framework preset: Vite) and add `VITE_FORM_ENDPOINT` if you use one.
+Import the repo in Vercel (framework preset: Vite). No environment variables are needed.
 `vercel.json` rewrites all routes to `index.html` so deep links like `/products/garam-masala` work.
 
 ## Structure

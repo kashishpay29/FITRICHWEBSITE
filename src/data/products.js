@@ -17,7 +17,7 @@
  *               SAMPLE VALUES — replace with the ingredient list printed on each pack.
  *  usage        Array of usage suggestions
  *  dishes       Dish names that pair well (used as chips)
- *  packSizes    Array of strings, e.g. ['100 g', '200 g']. SAMPLE VALUES.
+ *  packSizes    Array of strings, e.g. ['₹10 pack', '100 g']. The second entry is selected by default.
  *  image        Optional URL of a real packshot. If set it replaces the illustrated pack.
  *  photo        Key from images.js — a dish photo shown on the detail page
  *  pack         Colours for the illustrated pack: { base, band, powder, ink }
@@ -42,7 +42,7 @@ export const products = [
       'Stir a pinch into dals and rajma for a deeper, rounder flavour.',
     ],
     dishes: ['Paneer Butter Masala', 'Chole', 'Dal Makhani'],
-    packSizes: ['50 g', '100 g', '200 g', '500 g'],
+    packSizes: ['100 g'],
     photo: 'paneerMakhani',
     pack: { base: '#5a4632', band: '#d4ab5c', powder: '#6b3b22', ink: '#fbf5ea' },
     featured: true,
@@ -65,7 +65,7 @@ export const products = [
       'Mix into batters for pakoras and bhajiyas.',
     ],
     dishes: ['Dal Tadka', 'Aloo Gobi', 'Khichdi'],
-    packSizes: ['100 g', '200 g', '500 g', '1 kg'],
+    packSizes: ['₹10 pack', '100 g', '200 g', '500 g'],
     photo: 'dalTadka',
     pack: { base: '#c9820f', band: '#5e0d13', powder: '#efb73e', ink: '#fffcf6' },
     featured: true,
@@ -88,7 +88,7 @@ export const products = [
       'Dust over raita, fried snacks or roasted vegetables just before serving.',
     ],
     dishes: ['Rajma Masala', 'Sev Tamatar', 'Masala Fries'],
-    packSizes: ['100 g', '200 g', '500 g', '1 kg'],
+    packSizes: ['₹10 pack', '100 g', '500 g'],
     photo: 'paneerCurry',
     pack: { base: '#9a1c21', band: '#efb73e', powder: '#c4301f', ink: '#fffcf6' },
     featured: true,
@@ -111,7 +111,7 @@ export const products = [
       'Sprinkle over pizza, pasta and stir-fries.',
     ],
     dishes: ['Achaar', 'Dal Tadka', 'Pizza & Pasta'],
-    packSizes: ['₹10 pack'],
+    packSizes: ['₹10 pack', '100 g', '500 g'],
     photo: 'paneerTikka',
     pack: { base: '#9a1c21', band: '#efb73e', powder: '#b3262a', ink: '#fffcf6' },
   },
@@ -133,7 +133,7 @@ export const products = [
       'Add to dry vegetable preparations like bhindi and aloo.',
     ],
     dishes: ['Bhindi Masala', 'Mix Veg', 'Kadhai Paneer'],
-    packSizes: ['100 g', '200 g', '500 g', '1 kg'],
+    packSizes: ['₹10 pack', '100 g', '200 g', '500 g'],
     photo: 'paneerRice',
     pack: { base: '#4f5a2a', band: '#e6c787', powder: '#a88a4e', ink: '#fffcf6' },
     featured: true,
@@ -156,7 +156,7 @@ export const products = [
       'Use in chaats, chutneys and marinades in place of lemon.',
     ],
     dishes: ['Bhindi Fry', 'Samosa', 'Aloo Chaat'],
-    packSizes: ['₹10 pack'],
+    packSizes: ['₹10 pack', '100 g', '200 g', '500 g'],
     photo: 'bhindi',
     pack: { base: '#8a6a2f', band: '#f4e9d6', powder: '#c9a25a', ink: '#fffcf6' },
   },
@@ -178,7 +178,7 @@ export const products = [
       'Dust over fries, makhana and roasted peanuts.',
     ],
     dishes: ['Papdi Chaat', 'Fruit Chaat', 'Aloo Tikki'],
-    packSizes: ['50 g', '100 g', '200 g'],
+    packSizes: ['₹10 pack', '100 g'],
     photo: 'chaat',
     pack: { base: '#4f3f86', band: '#e6c787', powder: '#8a5a3a', ink: '#fffcf6' },
   },

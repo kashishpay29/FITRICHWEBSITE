@@ -88,10 +88,10 @@ function OurStory() {
 
 function Commitment() {
   const items = [
-    { icon: Sprout, title: 'Thoughtful selection', text: 'We look for spices with good colour, natural aroma and a clean taste.' },
-    { icon: Sparkles, title: 'Careful handling', text: 'Each spice is cleaned and ground with care to respect its character.' },
-    { icon: Package, title: 'Sealed for freshness', text: 'Packed to help keep aroma and flavour locked in until you open it.' },
-    { icon: HandHeart, title: 'Honest promise', text: 'Clear labels and straightforward products — no exaggerated claims.' },
+    { icon: Sprout, image: images.spiceFlatlay, title: 'Thoughtful selection', text: 'We look for spices with good colour, natural aroma and a clean taste.' },
+    { icon: Sparkles, image: images.heroSpoons, title: 'Careful handling', text: 'Each spice is cleaned and ground with care to respect its character.' },
+    { icon: Package, image: images.spiceBowls, title: 'Sealed for freshness', text: 'Packed to help keep aroma and flavour locked in until you open it.' },
+    { icon: HandHeart, image: images.dalTadka, title: 'Honest promise', text: 'Clear labels and straightforward products — no exaggerated claims.' },
   ]
   return (
     <section id="quality" className="scroll-mt-20 bg-cream-200/60 py-24 sm:py-32">
@@ -106,17 +106,25 @@ function Commitment() {
           viewport={{ once: true, margin: '-60px' }}
           className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {items.map(({ icon: Icon, title, text }) => (
+          {items.map(({ icon: Icon, image, title, text }) => (
             <motion.li
               key={title}
               variants={staggerChild}
-              className="group rounded-3xl border border-cream-300 bg-cream-50 p-7 transition-all duration-500 hover:-translate-y-1 hover:border-gold-300 hover:shadow-[0_30px_60px_-30px_rgba(63,8,12,.35)]"
+              className="group relative isolate flex min-h-80 flex-col justify-end overflow-hidden rounded-3xl p-7 shadow-[0_30px_60px_-35px_rgba(63,8,12,.6)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_40px_70px_-30px_rgba(63,8,12,.7)]"
             >
-              <span className="grid size-14 place-items-center rounded-2xl bg-chilli-700 text-turmeric-300 transition-transform duration-500 group-hover:-rotate-6">
-                <Icon className="size-6" />
+              <img
+                src={img(image, 700)}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-110"
+              />
+              {/* Dark gradient keeps the text readable over the photo */}
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-earth-900 via-earth-900/75 to-earth-900/20" aria-hidden="true" />
+              <span className="grid size-12 place-items-center rounded-2xl bg-turmeric-400 text-chilli-900 shadow-lg transition-transform duration-500 group-hover:-rotate-6">
+                <Icon className="size-5" />
               </span>
-              <h3 className="mt-6 font-sans text-lg font-bold tracking-normal text-earth-900">{title}</h3>
-              <p className="mt-2 leading-relaxed text-earth-600">{text}</p>
+              <h3 className="mt-5 font-sans text-lg font-bold tracking-normal text-cream-50">{title}</h3>
+              <p className="mt-2 leading-relaxed text-cream-200/90">{text}</p>
             </motion.li>
           ))}
         </motion.ul>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CircleAlert, CircleCheck, Clock, LoaderCircle, Mail, MapPin, Phone, Send } from 'lucide-react'
+import { CircleAlert, CircleCheck, Clock, Mail, MapPin, Phone } from 'lucide-react'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/Reveal'
 import SocialIcons, { BrandIcon } from '@/components/SocialIcons'
@@ -11,11 +11,10 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getProduct } from '@/data/products'
 import { images } from '@/data/images'
-import { fullAddress, primaryPhone, site, whatsappLink } from '@/data/site'
+import { fullAddress, site, whatsappLink } from '@/data/site'
 import { useSeo } from '@/hooks/useSeo'
 import { cn } from '@/lib/utils'
 
-const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT
 const enquiryTypes = ['Customer', 'Retailer', 'Distributor', 'Other']
 
 function validate(v) {
@@ -66,7 +65,7 @@ function ContactForm() {
   const [values, setValues] = useState(initial)
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
-  const [status, setStatus] = useState('idle') // idle | submitting | success | error
+  const [status, setStatus] = useState('idle') // idle | success
 
   const update = (field) => (e) => {
     const next = { ...values, [field]: e.target.value }
@@ -78,7 +77,7 @@ function ContactForm() {
     setErrors(validate(values))
   }
 
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault()
     const errs = validate(values)
     setErrors(errs)
@@ -88,27 +87,28 @@ function ContactForm() {
       return
     }
 
-    setStatus('submitting')
-    try {
-      if (FORM_ENDPOINT) {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ ...values, _subject: `New ${values.type.toLowerCase()} enquiry from ${values.name}` }),
-        })
-        if (!res.ok) throw new Error(`Request failed: ${res.status}`)
-      } else {
-        // No form service configured yet — hand the enquiry to the visitor's email app.
-        const body = `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone}\nEnquiry type: ${values.type}\n\n${values.message}`
-        window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`${values.type} enquiry — ${values.name}`)}&body=${encodeURIComponent(body)}`
-      }
-      setStatus('success')
-      setValues({ ...initial, message: '' })
-      setTouched({})
-    } catch {
-      setStatus('error')
-    }
+    // Enquiries go to FitRich on WhatsApp, pre-filled with the visitor's details.
+    const text = [
+      `*New ${values.type.toLowerCase()} enquiry — FitRich Masale website*`,
+      '',
+      `Name: ${values.name.trim()}`,
+      `Phone: ${values.phone.trim()}`,
+      `Email: ${values.email.trim()}`,
+      '',
+      values.message.trim(),
+    ].join('\n')
+    const url = whatsappLink(text)
+    // Opened directly in the submit handler so pop-up blockers allow it; fall back to same-tab navigation.
+    // ('noopener' isn't passed as a feature because it makes window.open return null.)
+    const win = window.open(url, '_blank')
+    if (win) win.opener = null
+    else window.location.href = url
+
+    setStatus('success')
+    setValues({ ...initial, message: '' })
+    setTouched({})
   }
+
 
   const fieldError = (f) => touched[f] && errors[f]
 
@@ -133,9 +133,7 @@ function ContactForm() {
           </motion.span>
           <h2 className="mt-6 text-3xl font-bold text-earth-900">Thank you!</h2>
           <p className="mt-3 max-w-sm text-earth-600">
-            {FORM_ENDPOINT
-              ? 'Your message has been sent. Our team will get back to you shortly.'
-              : 'Your email app should now be open with your message ready to send. Prefer to chat? Reach us on WhatsApp.'}
+            WhatsApp has opened with your enquiry ready — just tap <strong>Send</strong> and our team will get back to you shortly.
           </p>
           <Button variant="outline" className="mt-8" onClick={() => setStatus('idle')}>
             Send another message
@@ -144,7 +142,7 @@ function ContactForm() {
       ) : (
         <motion.form key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onSubmit={onSubmit} noValidate>
           <h2 className="text-3xl font-bold text-earth-900">Send us a message</h2>
-          <p className="mt-2 text-earth-600">Fill in the form and we’ll respond as soon as possible.</p>
+          <p className="mt-2 text-earth-600">Fill in your details and your enquiry will open in WhatsApp, ready to send to our team.</p>
 
           <fieldset className="mt-8">
             <legend className="text-sm font-semibold text-earth-800">I am a</legend>
@@ -179,37 +177,11 @@ function ContactForm() {
             </Field>
           </div>
 
-          <AnimatePresence>
-            {status === 'error' && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                role="alert"
-                className="mt-6 flex gap-3 overflow-hidden rounded-2xl border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive"
-              >
-                <CircleAlert className="size-5 shrink-0" />
-                <p>
-                  Sorry, we couldn’t send your message right now. Please try again, or reach us directly on{' '}
-                  <a href={whatsappLink()} target="_blank" rel="noreferrer" className="font-semibold underline">WhatsApp</a> or{' '}
-                  <a href={primaryPhone.href} className="font-semibold underline">{primaryPhone.display}</a>.
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-earth-500">We’ll only use your details to respond to your enquiry.</p>
-            <Button type="submit" size="lg" disabled={status === 'submitting'}>
-              {status === 'submitting' ? (
-                <>
-                  <LoaderCircle className="animate-spin" /> Sending…
-                </>
-              ) : (
-                <>
-                  Send Message <Send />
-                </>
-              )}
+            <Button type="submit" size="lg" variant="whatsapp">
+              <BrandIcon name="whatsapp" /> Send on WhatsApp
             </Button>
           </div>
         </motion.form>

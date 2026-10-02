@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, ChevronDown, CookingPot, Flame, Leaf, Sparkles, Sprout, Wheat } from 'lucide-react'
+import { ArrowRight, BadgeCheck, ChevronDown, Droplets, Flag, Flame, FlaskConicalOff, Leaf, PackageCheck, Palette, ShieldCheck, Sparkles, Tractor } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/ProductCard'
 import ProductPack from '@/components/ProductPack'
@@ -335,10 +335,14 @@ function FeaturedProducts() {
 
 function WhyChoose() {
   const reasons = [
-    { icon: Sprout, title: 'Quality Ingredients', text: 'Spices chosen for colour, aroma and taste.' },
-    { icon: Flame, title: 'Authentic Indian Flavours', text: 'Recipes rooted in traditional Indian kitchens.' },
-    { icon: Wheat, title: 'Carefully Processed', text: 'Cleaned, ground and packed with attention to detail.' },
-    { icon: CookingPot, title: 'Everyday Essentials', text: 'From pure spices to signature blends — one trusted range.' },
+    { icon: Palette, title: 'No Artificial Colours' },
+    { icon: FlaskConicalOff, title: 'No Preservatives or Chemicals' },
+    { icon: ShieldCheck, title: 'Hygienically Processed' },
+    { icon: PackageCheck, title: 'Premium Grade Packaging' },
+    { icon: Droplets, title: 'High Natural Oil Content' },
+    { icon: Flag, title: 'Made in India' },
+    { icon: Tractor, title: 'Sourced Directly from Farms' },
+    { icon: BadgeCheck, title: 'Stringent Quality Standards' },
   ]
 
   return (
@@ -351,22 +355,22 @@ function WhyChoose() {
         <SectionHeading light eyebrow="Why choose FitRich" title="Every pinch, carefully considered." />
 
         <div className="mt-16 grid items-center gap-10 lg:grid-cols-[1fr_auto_1fr]">
-          <div className="grid gap-6">
-            {reasons.slice(0, 2).map((r, i) => (
-              <Reason key={r.title} {...r} delay={i * 0.1} align="right" />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            {reasons.slice(0, 4).map((r, i) => (
+              <Reason key={r.title} {...r} delay={i * 0.08} align="right" />
             ))}
           </div>
 
-          <Reveal className="relative mx-auto size-72 sm:size-96">
+          <Reveal className="relative mx-auto size-72 sm:size-80 lg:order-none xl:size-96">
             <div className="absolute inset-0 rounded-full border border-dashed border-gold-400/40 motion-safe:animate-[spin_60s_linear_infinite]" />
             <div className="absolute inset-6 overflow-hidden rounded-full border-4 border-gold-400/60 shadow-[0_0_80px_-10px_rgba(239,183,62,.45)]">
               <img src={img(images.spiceFlatlay, 900)} alt="An array of Indian spices viewed from above" loading="lazy" className="h-full w-full object-cover" />
             </div>
           </Reveal>
 
-          <div className="grid gap-6">
-            {reasons.slice(2).map((r, i) => (
-              <Reason key={r.title} {...r} delay={0.2 + i * 0.1} />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            {reasons.slice(4).map((r, i) => (
+              <Reason key={r.title} {...r} delay={0.2 + i * 0.08} />
             ))}
           </div>
         </div>
@@ -375,21 +379,18 @@ function WhyChoose() {
   )
 }
 
-function Reason({ icon: Icon, title, text, delay, align }) {
+function Reason({ icon: Icon, title, delay, align }) {
   return (
     <Reveal
       delay={delay}
-      className={`group flex gap-5 rounded-2xl border border-cream-50/10 bg-cream-50/[0.04] p-6 backdrop-blur-sm transition-colors hover:border-gold-400/40 hover:bg-cream-50/[0.08] ${
+      className={`group flex items-center gap-4 rounded-2xl border border-cream-50/10 bg-cream-50/[0.04] px-5 py-4 backdrop-blur-sm transition-colors hover:border-gold-400/40 hover:bg-cream-50/[0.08] ${
         align === 'right' ? 'lg:flex-row-reverse lg:text-right' : ''
       }`}
     >
-      <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-turmeric-300 to-gold-500 text-chilli-900 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
-        <Icon className="size-6" />
+      <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-turmeric-300 to-gold-500 text-chilli-900 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+        <Icon className="size-5" />
       </span>
-      <div>
-        <h3 className="text-xl font-bold">{title}</h3>
-        <p className="mt-1.5 text-cream-200/75">{text}</p>
-      </div>
+      <h3 className="font-sans text-lg leading-snug font-bold tracking-normal">{title}</h3>
     </Reveal>
   )
 }

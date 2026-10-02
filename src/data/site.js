@@ -1,6 +1,6 @@
 /**
  * Business details used across the site (navbar, footer, contact page, WhatsApp links).
- * Email, hours and social links are still PLACEHOLDERS — replace before launch.
+ * Business hours are still a PLACEHOLDER — replace before launch.
  */
 export const site = {
   name: 'FitRich Masale',
@@ -11,7 +11,7 @@ export const site = {
     { display: '+91 84339 06345', href: 'tel:+918433906345' },
     { display: '+91 89791 62111', href: 'tel:+918979162111' },
   ],
-  email: 'hello@fitrichmasale.com',
+  email: 'fitrich.spices@gmail.com',
   // Digits only, with country code, no "+" — used for wa.me links.
   whatsapp: '918979162111',
   address: {
@@ -22,9 +22,9 @@ export const site = {
   },
   hours: 'Mon – Sat, 10:00 AM – 6:00 PM',
   social: {
-    instagram: 'https://instagram.com/',
-    facebook: 'https://facebook.com/',
-    youtube: 'https://youtube.com/',
+    instagram: 'https://www.instagram.com/fitrich_spices/',
+    facebook: 'https://www.facebook.com/fitrich_spices',
+    linkedin: 'https://www.linkedin.com/company/fitrich-spices/',
   },
 }
 
