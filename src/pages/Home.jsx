@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, BadgeCheck, ChevronDown, Droplets, Flag, Flame, FlaskConicalOff, Leaf, PackageCheck, Palette, ShieldCheck, Sparkles, Tractor } from 'lucide-react'
+import { ArrowRight, BadgeCheck, ShoppingBag, ChevronDown, Droplets, Flag, Flame, FlaskConicalOff, Leaf, PackageCheck, Palette, ShieldCheck, Sparkles, Tractor } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import ProductCard from '@/components/ProductCard'
 import ProductPack from '@/components/ProductPack'
@@ -9,6 +9,7 @@ import Reveal, { staggerChild, staggerParent } from '@/components/Reveal'
 import SectionHeading from '@/components/SectionHeading'
 import { featuredProducts, getProduct, products } from '@/data/products'
 import { images, img } from '@/data/images'
+import { site } from '@/data/site'
 import { useSeo } from '@/hooks/useSeo'
 
 const ease = [0.22, 1, 0.36, 1]
@@ -95,9 +96,14 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.9, ease }}
-            className="mt-10 flex flex-col gap-3 sm:flex-row"
+            className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
           >
             <Button asChild variant="gold" size="lg">
+              <a href={site.shopUrl} target="_blank" rel="noopener noreferrer">
+                <ShoppingBag /> Shop Now
+              </a>
+            </Button>
+            <Button asChild variant="outlineLight" size="lg">
               <Link to="/products">
                 Explore Our Products <ArrowRight />
               </Link>

@@ -6,6 +6,8 @@ export const site = {
   name: 'FitRich Masale',
   tagline: 'Bringing Authentic Flavours to Every Kitchen.',
   url: 'https://fitrichmasale.com',
+  // Online store — the "Shop Now" button links here.
+  shopUrl: 'https://shop.fitrichmasale.com',
   // First number is the primary one shown in the navbar.
   phones: [
     { display: '+91 84339 06345', href: 'tel:+918433906345' },
